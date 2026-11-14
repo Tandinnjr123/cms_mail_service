@@ -13,8 +13,8 @@ func NewEmailLogService(repository repositories.Repository) *EmailLogService {
 	return &EmailLogService{Repository: repository}
 }
 
-func (s *EmailLogService) FetchEmailLog() ([]model.EmailLog, error) {
-    emails, err := s.Repository.FetchEmailLog()
+func (s *EmailLogService) FetchEmailLog(offset, limit int) ([]model.EmailLog, error) {
+    emails, err := s.Repository.FetchEmailLog(offset, limit)
     if err != nil {
         return nil, err
     }

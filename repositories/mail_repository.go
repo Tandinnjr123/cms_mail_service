@@ -20,9 +20,14 @@ func NewEmailLogRepository(db *gorm.DB) *EmailLogRepository {
 	return &EmailLogRepository{db: db}
 }
 
-func (r *EmailLogRepository) FetchEmailLog() ([]model.EmailLog, error) {
+// FetchEmailLog lists sent emails, newest first. A limit of 0 or less returns every email.
+func (r *EmailLogRepository) FetchEmailLog(offset, limit int) ([]model.EmailLog, error) {
     var emails []model.EmailLog
-    err := r.db.Find(&emails).Error
+    query := r.db.Order("created_at DESC")
+    if limit > 0 {
+        query = query.Offset(offset).Limit(limit)
+    }
+    err := query.Find(&emails).Error
     if err != nil {
         return nil, err
     }

@@ -18,7 +18,9 @@ func NewEmailLogResolver(service services.Services) *MailResolver {
 }
 
 func (r *MailResolver) FetchEmailLog(p graphql.ResolveParams) *model.GenericMailResponse {
-    emails, err := r.Services.FetchEmailLog()
+    offset, _ := p.Args["offset"].(int)
+    limit, _ := p.Args["limit"].(int)
+    emails, err := r.Services.FetchEmailLog(offset, limit)
     if err != nil {
         return helpers.FormatError(err)
     }

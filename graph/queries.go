@@ -30,6 +30,10 @@ func NewQueryType(resolver *resolvers.MailResolver) *graphql.Object {
             },
             "fetchEmailLog": &graphql.Field{
                 Type: EmailLogResponse,
+                Args: graphql.FieldConfigArgument{
+                    "offset": &graphql.ArgumentConfig{Type: graphql.Int},
+                    "limit":  &graphql.ArgumentConfig{Type: graphql.Int, Description: "Emails per page; omit for every email."},
+                },
                 Resolve: func(p graphql.ResolveParams) (interface{}, error) {
                     return AuthMiddleware(PermissionMiddleware("list", resolver.FetchEmailLog))(p), nil
                 },

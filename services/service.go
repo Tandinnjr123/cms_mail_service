@@ -3,6 +3,6 @@ package services
 import "cms_mail_service/model"
 
 type Services interface {
-	FetchEmailLog() ([]model.EmailLog, error)
+	FetchEmailLog(offset, limit int) ([]model.EmailLog, error)
 	SendMail(mailData model.MailInput) error
 }

@@ -3,6 +3,6 @@ package repositories
 import "cms_mail_service/model"
 
 type Repository interface {
-	FetchEmailLog() ([]model.EmailLog, error)
+	FetchEmailLog(offset, limit int) ([]model.EmailLog, error)
 	SendMail(mailData model.MailInput) error
 }
