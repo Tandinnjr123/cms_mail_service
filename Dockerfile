@@ -1,28 +1,26 @@
-# Use the official Go image with necessary tools for development
-FROM golang:1.23-alpine
+FROM golang:1.23-alpine AS builder
 
-# Set environment variables for x86_64 (amd64) architecture
-ENV GOARCH=amd64
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the go.mod and go.sum files first to leverage Docker layer caching
 COPY go.mod go.sum ./
-
-# Download dependencies
 RUN go mod download
 
-# Copy the entire project directory
 COPY . .
 
-# Build Service
 RUN go build -o mailservice
 
+FROM alpine:3.20
 
-# Expose the necessary port
+WORKDIR /app
+
+COPY --from=builder /app/mailservice .
+COPY --from=builder /app/.env .
+COPY --from=builder /app/helpers/mail_template.html ./helpers/
+
 EXPOSE 8095
 
-# Command to run the service
-CMD ["./mailservice"]
+HEALTHCHECK CMD wget -qO- http://localhost:8095/health || exit 1
 
+CMD ["./mailservice"]

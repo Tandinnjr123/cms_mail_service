@@ -1,0 +1,23 @@
+services:
+  mailservice:
+    image: cms-mailservice:latest
+    container_name: cms-mailservice
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+    ports:
+      - "8095:8095"
+    networks:
+      - educareNetwork
+    healthcheck:
+      test: wget -qO- http://localhost:8095/health || exit 1
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
+networks:
+  educareNetwork:
+    external: true
