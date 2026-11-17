@@ -9,13 +9,13 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o mailservice
+RUN go build -o cms-mail-service
 
 FROM alpine:3.20
 
 WORKDIR /app
 
-COPY --from=builder /app/mailservice .
+COPY --from=builder /app/cms-mail-service .
 COPY --from=builder /app/.env .
 COPY --from=builder /app/helpers/mail_template.html ./helpers/
 
@@ -23,4 +23,4 @@ EXPOSE 8095
 
 HEALTHCHECK CMD wget -qO- http://localhost:8095/health || exit 1
 
-CMD ["./mailservice"]
+CMD ["./cms-mail-service"]

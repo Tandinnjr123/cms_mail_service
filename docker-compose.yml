@@ -1,7 +1,7 @@
 services:
-  mailservice:
-    image: cms-mailservice:latest
-    container_name: cms-mailservice
+  cms-mail-service:
+    image: cms-mail-service:latest
+    container_name: cms-mail-service
     build:
       context: .
       dockerfile: Dockerfile

@@ -7,6 +7,8 @@ toolchain go1.24.6
 require (
 	github.com/graphql-go/graphql v0.8.1
 	github.com/labstack/echo/v4 v4.13.4
+	github.com/lib/pq v1.10.9
+	github.com/machinebox/graphql v0.2.2
 )
 
 require (
@@ -19,8 +21,6 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
-	github.com/lib/pq v1.10.9 // indirect
-	github.com/machinebox/graphql v0.2.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
