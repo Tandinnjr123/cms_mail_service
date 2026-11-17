@@ -35,7 +35,7 @@ func NewQueryType(resolver *resolvers.MailResolver) *graphql.Object {
                     "limit":  &graphql.ArgumentConfig{Type: graphql.Int, Description: "Emails per page; omit for every email."},
                 },
                 Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-                    return AuthMiddleware(PermissionMiddleware("list", resolver.FetchEmailLog))(p), nil
+                    return AuthMiddleware(PermissionMiddleware("LIST_EMAIL_LOGS", resolver.FetchEmailLog))(p), nil
                 },
             },
         },
